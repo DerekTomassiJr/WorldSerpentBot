@@ -4,7 +4,11 @@ import random
 class cs_bot():
     def __init__(self, message):
         self.channel = message.channel
-        self.voice_channel = message.author.voice.channel
+
+        try:
+            self.voice_channel = message.author.voice.channel
+        except:
+            print("No Voice Channel Detected!")
 
         # logging channel information
         print("CS Bot Object Created!")
@@ -20,12 +24,13 @@ class cs_bot():
         for member in team_ct:
             pm_message += (member.name + "\n")
         
-        pm_message += "Type !csconfirmmatch to confirm teams\n"
+        pm_message += "\n"
+        pm_message += "Type !csconfirmteams to confirm teams\n"
         pm_message += "Type !csreroll to reroll teams"
         
         return pm_message
 
-    def private_match(self, player_count):
+    def private_match(self):
         if (self.match_started):
             return "A match is currently in progress"
         
@@ -54,11 +59,15 @@ class cs_bot():
         return self.create_private_match_message(team_t, team_ct)
 
     def start_match(self):
+        print("Starting Match")
+
         for member in team_t:
             member.move_to(TEAM_T_VC, VC_MOVE_REASON)
+        print("Moved T Members")
 
         for member in team_ct:
             member.move_to(TEAM_CT_VC, VC_MOVE_REASON)
+        print("Moved CT Members")
 
         return "Match Started"
 
@@ -72,12 +81,18 @@ class cs_bot():
                    Use the !csprivatematch command to start a game"""
 
     def command_handler(self, command):
-        if (self.command == self.PRIVATE_MATCH_COMMAND or self.command == self.REROLL_TEAMS_COMMAND):
+        print(command)
+        print(self.game_setup)
+        print(self.team_ct)
+        
+        if (command == self.PRIVATE_MATCH_COMMAND or command == self.REROLL_TEAMS_COMMAND):
             return self.private_match()
-        elif (self.command == CONFIRM_TEAMS_COMMAND and game_setup):
+        elif (command == self.CONFIRM_TEAMS_COMMAND and self.game_setup):
             return self.start_match()
-        elif (self.command == END_GAME_COMMAND)
+        elif (command == self.END_GAME_COMMAND):
             return self.end_match()
+        else:
+            return "Command Not Found"
 
 
     # Initialization Variables
