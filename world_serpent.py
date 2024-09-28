@@ -2,11 +2,10 @@ import discord
 import cs_bot
 from bot_token import TOKEN
 
-# Global variables
-channels = ["test", "general"]
-cs_bot = None
-
 class world_serpent(discord.Client):
+    # Class Variables
+    
+    
     async def on_ready(self):
             print(f'Logged in as {self.user} (ID: {self.user.id})')
             print('------')
@@ -28,11 +27,15 @@ class world_serpent(discord.Client):
                 print("!cs Command Triggered by: " + str(message.author))
                 await message.channel.send("Valid CS Command") #debug
                 
-                # if (cs_bot == None):
-                #     cs_bot = cs_bot(message)
-                #     await message.channel.send("CS Bot Actions Active!")
+                #if (counter_bot == None):
+                counter_bot = cs_bot.cs_bot(message)
+                await message.channel.send("CS Bot Actions Active!")
                 
-                # cs_bot.command_handler(message.content)
+                counter_bot.command_handler(message.content)
+
+# Global variables
+channels = ["test", "general"]
+counter_bot = None
 
 client = world_serpent(intents=discord.Intents.all())
 client.run(TOKEN)
