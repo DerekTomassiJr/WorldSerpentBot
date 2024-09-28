@@ -17,6 +17,11 @@ class world_serpent(discord.Client):
         if (str(message.channel) in channels):
             cs_commands = ["!csprivatematch", "!csconfirmteams", "!csreroll", "!csendgame"]
 
+            # Do not trigger if the author is this bot
+            if (str(message.author) == WORLD_SERPENT_NAME):
+                print("Bot Message")
+                return
+
             # Commands
             if (message.content == "!test"):
                 print("!test Command Triggered by: " + str(message.author))
@@ -37,6 +42,9 @@ class world_serpent(discord.Client):
 # Global variables
 channels = ["test"]#, "general"]
 counter_bot = None
+
+# CONSTANTS
+WORLD_SERPENT_NAME = "Jörmungandr#9126"
 
 client = world_serpent(intents=discord.Intents.all())
 client.run(TOKEN)
