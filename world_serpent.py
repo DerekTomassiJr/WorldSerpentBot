@@ -15,7 +15,7 @@ class world_serpent(discord.Client):
         print("On_Message Triggered!")
 
         if (str(message.channel) in channels):
-            cs_commands = ["!csprivatematch", "!csconfirmteams"]
+            cs_commands = ["!csprivatematch", "!csconfirmteams", "!csreroll", "!csendgame"]
 
             # Commands
             if (message.content == "!test"):
@@ -31,10 +31,11 @@ class world_serpent(discord.Client):
                 counter_bot = cs_bot.cs_bot(message)
                 await message.channel.send("CS Bot Actions Active!")
                 
-                counter_bot.command_handler(message.content)
+                cs_message = counter_bot.command_handler(message.content)
+                await message.channel.send(cs_message)
 
 # Global variables
-channels = ["test", "general"]
+channels = ["test"]#, "general"]
 counter_bot = None
 
 client = world_serpent(intents=discord.Intents.all())
