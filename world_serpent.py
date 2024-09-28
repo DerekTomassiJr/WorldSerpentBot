@@ -1,10 +1,12 @@
 import discord
 import cs_bot
+import object_handler
 from bot_token import TOKEN
 
 class world_serpent(discord.Client):
-    # Class Variables
-    
+    # Global variables
+    channels = ["test"]#, "general"]
+    counter_bot = None
     
     async def on_ready(self):
             print(f'Logged in as {self.user} (ID: {self.user.id})')
@@ -14,7 +16,7 @@ class world_serpent(discord.Client):
         #Debug Logging
         print("On_Message Triggered!")
 
-        if (str(message.channel) in channels):
+        if (str(message.channel) in self.channels):
             cs_commands = ["!csprivatematch", "!csconfirmteams", "!csreroll", "!csendgame"]
 
             # Do not trigger if the author is this bot
@@ -32,16 +34,13 @@ class world_serpent(discord.Client):
                 print("!cs Command Triggered by: " + str(message.author))
                 await message.channel.send("Valid CS Command") #debug
                 
-                #if (counter_bot == None):
-                counter_bot = cs_bot.cs_bot(message)
-                await message.channel.send("CS Bot Actions Active!")
+                if (self.counter_bot == None):
+                    self.counter_bot = cs_bot.cs_bot(message)
+                    await message.channel.send("CS Bot Actions Active!")
                 
-                cs_message = counter_bot.command_handler(message.content)
+                cs_message = self.counter_bot.command_handler(message.content)
+                print(cs_message)
                 await message.channel.send(cs_message)
-
-# Global variables
-channels = ["test"]#, "general"]
-counter_bot = None
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
