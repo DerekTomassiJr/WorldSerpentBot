@@ -5,7 +5,7 @@ from bot_token import TOKEN
 
 class world_serpent(discord.Client):
     # Global variables
-    channels = ["test"]#, "general"]
+    channels = ["test", "general", "none_peasants"]
     counter_bot = None
     
     async def on_ready(self):
@@ -28,6 +28,9 @@ class world_serpent(discord.Client):
             if (message.content == "!test"):
                 print("!test Command Triggered by: " + str(message.author))
                 await message.channel.send("Hello!")
+
+            if (message.content == "!move"):
+                await message.channel.send("https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&");
             
             is_cs_command = next((True for command in cs_commands if command in message.content), False)
             if (is_cs_command):
