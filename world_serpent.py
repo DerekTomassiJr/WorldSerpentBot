@@ -34,19 +34,14 @@ class world_serpent(discord.Client):
             if (message.content == "!slidein"):
                 await message.channel.send(SLIDE_GIF)
             
-            # create csbot
-            is_cs_command = next((True for command in cs_commands if command in message.content), False)
+            # create active bots
             if (message.content == "!startcsbot"):
                 print("!cs Command Triggered by: " + str(message.author))
                 self.active_bots[message.author.id] = cs_bot.cs_bot(message, client)
                 await message.channel.send("CS Bot Actions Active!")
                 return
-                
-                cs_message = self.counter_bot.command_handler(message.content)
-                print(cs_message)
-                await message.channel.send(cs_message)
 
-            # handle command with cs bot
+            # handle active bots
             if (message.author.id in self.active_bots):
                 if (self.active_bots[message.author.id].bot_active):
                     await self.active_bots[message.author.id].command_handler(message.content)

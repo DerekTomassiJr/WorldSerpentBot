@@ -102,8 +102,9 @@ class cs_bot(discord.Client):
         elif (command == self.END_GAME_COMMAND):
             self.deactivate_cs_bot()
             await self.channel.send(self.end_match())
-        elif (not self.bot_active):
-            await self.channel.send("CS bot is not currently active!")
+        elif (command == self.STOP_BOT_COMMAND):
+            self.deactivate_cs_bot()
+            await self.channel.send("CS Bot Deactivated!")
         else:
             await self.channel.send("Command Not Found")
 
@@ -122,8 +123,8 @@ class cs_bot(discord.Client):
     # Constants
     TEAM_T_VC_ID = 1277807619872002099 # T Side Voice Channel
     TEAM_CT_VC_ID = 1277807683168374795 # CT Side Voice Channel
-    VC_MOVE_REASON = "CS Private Match" # Audit Log Move Reason
     PRIVATE_MATCH_COMMAND = "!csprivatematch"
     CONFIRM_TEAMS_COMMAND = "!csconfirmteams"
     REROLL_TEAMS_COMMAND = "!csreroll"
     END_GAME_COMMAND = "!csendgame"
+    STOP_BOT_COMMAND = "!stopcsbot"
