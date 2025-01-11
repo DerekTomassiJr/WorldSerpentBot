@@ -17,7 +17,7 @@ class cs_bot():
 
     def create_private_match_message(self, team_t, team_ct):
         pm_message = "=== T Side ===\n"
-        for memeber in team_t:
+        for member in team_t:
             pm_message += (member.name + "\n")
         
         pm_message += "\n=== CT Side ===\n"
@@ -97,7 +97,7 @@ class cs_bot():
 
     # Initialization Variables
     player_count = 0 # num of players in game
-    game_setup = False # flag for game status
+    game_setup = True # flag for game status
     match_started = False # flag for match status
     team_t = [] # Team 1
     team_ct = [] # Team 2

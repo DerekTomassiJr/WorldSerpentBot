@@ -30,7 +30,10 @@ class world_serpent(discord.Client):
                 await message.channel.send("Hello!")
 
             if (message.content == "!move"):
-                await message.channel.send("https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&");
+                await message.channel.send(DONKEY_GIF)
+
+            if (message.content == "!slidein"):
+                await message.channel.send(SLIDE_GIF)
             
             is_cs_command = next((True for command in cs_commands if command in message.content), False)
             if (is_cs_command):
@@ -47,6 +50,10 @@ class world_serpent(discord.Client):
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
+
+# GIF CONSTANRTS
+DONKEY_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&"
+SLIDE_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1327483349308280934/cop-cop-slide.gif?ex=67833ab5&is=6781e935&hm=3950f1175aa01bb84b2ce1fc0a1e7c9585f8384e68fd6aae107c8509d0cc173a&"
 
 client = world_serpent(intents=discord.Intents.all())
 client.run(TOKEN)
