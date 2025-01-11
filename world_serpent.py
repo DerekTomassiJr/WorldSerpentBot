@@ -1,12 +1,11 @@
 import discord
 import cs_bot
-import object_handler
 from bot_token import TOKEN
 
 class world_serpent(discord.Client):
     # Global variables
     channels = ["test", "general", "none_peasants"]
-    counter_bot = None
+    active_bots = {}
     
     async def on_ready(self):
             print(f'Logged in as {self.user} (ID: {self.user.id})')
@@ -35,18 +34,24 @@ class world_serpent(discord.Client):
             if (message.content == "!slidein"):
                 await message.channel.send(SLIDE_GIF)
             
+            # create csbot
             is_cs_command = next((True for command in cs_commands if command in message.content), False)
-            if (is_cs_command):
+            if (message.content == "!startcsbot"):
                 print("!cs Command Triggered by: " + str(message.author))
-                await message.channel.send("Valid CS Command") #debug
-                
-                if (self.counter_bot == None):
-                    self.counter_bot = cs_bot.cs_bot(message)
-                    await message.channel.send("CS Bot Actions Active!")
+                self.active_bots[message.author.id] = cs_bot.cs_bot(message, client)
+                await message.channel.send("CS Bot Actions Active!")
+                return
                 
                 cs_message = self.counter_bot.command_handler(message.content)
                 print(cs_message)
                 await message.channel.send(cs_message)
+
+            # handle command with cs bot
+            if (message.author.id in self.active_bots):
+                if (self.active_bots[message.author.id].bot_active):
+                    await self.active_bots[message.author.id].command_handler(message.content)
+                else:
+                    del active_bots[message.author.id]
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"

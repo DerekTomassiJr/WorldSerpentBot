@@ -1,9 +1,10 @@
 import discord
 import random
 
-class cs_bot():
-    def __init__(self, message):
+class cs_bot(discord.Client):
+    def __init__(self, message, client):
         self.channel = message.channel
+        self.client = client
 
         try:
             self.voice_channel = message.author.voice.channel
@@ -15,13 +16,15 @@ class cs_bot():
         print("Text Channel Detected: " + self.channel.name)
         print("User Active Voice Channel Detected: " + self.voice_channel.name)
 
-    def create_private_match_message(self, team_t, team_ct):
+        self.bot_active = True
+
+    def create_private_match_message(self):
         pm_message = "=== T Side ===\n"
-        for member in team_t:
+        for member in self.team_t:
             pm_message += (member.name + "\n")
         
         pm_message += "\n=== CT Side ===\n"
-        for member in team_ct:
+        for member in self.team_ct:
             pm_message += (member.name + "\n")
         
         pm_message += "\n"
@@ -49,55 +52,67 @@ class cs_bot():
 
         # Splitting the teams
         half_index = round(len(users) / 2)
-        team_t = users[:half_index]
-        team_ct = users[half_index:]
+        self.team_t = users[:half_index]
+        self.team_ct = users[half_index:]
         
-        print("T Side Team: ", team_t)
-        print("CT Side Team: ", team_ct)
-        game_setup = True
+        print("T Side Team: ", self.team_t)
+        print("CT Side Team: ", self.team_ct)
+        self.game_setup = True
 
-        return self.create_private_match_message(team_t, team_ct)
+        return self.create_private_match_message()
 
-    def start_match(self):
+    async def start_match(self):
         print("Starting Match")
 
-        for member in team_t:
-            member.move_to(TEAM_T_VC, VC_MOVE_REASON)
+        TEAM_T_VC = self.client.get_channel(self.TEAM_T_VC_ID)
+        TEAM_CT_VC = self.client.get_channel(self.TEAM_CT_VC_ID)
+
+        for member in self.team_t:
+            await member.move_to(TEAM_T_VC)
         print("Moved T Members")
 
-        for member in team_ct:
-            member.move_to(TEAM_CT_VC, VC_MOVE_REASON)
+        for member in self.team_ct:
+            await member.move_to(TEAM_CT_VC)
         print("Moved CT Members")
 
-        return "Match Started"
+        await self.channel.send("Match Started")
 
     def end_match(self):
-        if (game_setup or match_started):
-            game_setup = False
-            match_started = False
+        if (self.game_setup or self.match_started):
+            self.game_setup = False
+            self.match_started = False
             return "Ended Current Game"
         else:
             return """A game has not been created\n
                    Use the !csprivatematch command to start a game"""
 
-    def command_handler(self, command):
+    def deactivate_cs_bot(self):
+        bot_active = False
+        print("Bot has been deactivate ")
+
+    async def command_handler(self, command):
         print(command)
         print(self.game_setup)
         print(self.team_ct)
         
         if (command == self.PRIVATE_MATCH_COMMAND or command == self.REROLL_TEAMS_COMMAND):
-            return self.private_match()
+            await self.channel.send(self.private_match())
         elif (command == self.CONFIRM_TEAMS_COMMAND and self.game_setup):
-            return self.start_match()
+            await self.start_match()
         elif (command == self.END_GAME_COMMAND):
-            return self.end_match()
+            self.deactivate_cs_bot()
+            await self.channel.send(self.end_match())
+        elif (not self.bot_active):
+            await self.channel.send("CS bot is not currently active!")
         else:
-            return "Command Not Found"
+            await self.channel.send("Command Not Found")
 
 
     # Initialization Variables
+    client = None # World Serpent Bot Client
+    bot_active = False # Tracking for whether the bot should be terminated
     player_count = 0 # num of players in game
-    game_setup = True # flag for game status
+    game_setup = False # flag for game status
     match_started = False # flag for match status
     team_t = [] # Team 1
     team_ct = [] # Team 2
@@ -105,8 +120,8 @@ class cs_bot():
     voice_channel = None # user's active voice channel
 
     # Constants
-    TEAM_T_VC = 1277807619872002099 # T Side Voice Channel
-    TEAM_CT_VC = 1277807683168374795 # CT Side Voice Channel
+    TEAM_T_VC_ID = 1277807619872002099 # T Side Voice Channel
+    TEAM_CT_VC_ID = 1277807683168374795 # CT Side Voice Channel
     VC_MOVE_REASON = "CS Private Match" # Audit Log Move Reason
     PRIVATE_MATCH_COMMAND = "!csprivatematch"
     CONFIRM_TEAMS_COMMAND = "!csconfirmteams"
