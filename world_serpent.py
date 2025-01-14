@@ -36,9 +36,16 @@ class world_serpent(discord.Client):
             
             # create active bots
             if (message.content == "!startcsbot"):
-                print("!cs Command Triggered by: " + str(message.author))
+                print("Creating cs bot! Triggerd by: " + str(message.author))
                 self.active_bots[message.author.id] = cs_bot.cs_bot(message, client)
                 await message.channel.send("CS Bot Actions Active!")
+                return
+            
+            # temp fix for now
+            if (message.content == "!stopallcsbots"):
+                print("Stopping all active cs bot")
+                self.active_bots = {}
+                await message.channel.send("Deactivated all bots!!!")
                 return
 
             # handle active bots
