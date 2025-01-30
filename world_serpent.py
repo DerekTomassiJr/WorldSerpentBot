@@ -1,5 +1,6 @@
 import discord
 import cs_bot
+from ChildBots import siege_bot
 from bot_token import TOKEN
 
 class world_serpent(discord.Client):
@@ -46,6 +47,12 @@ class world_serpent(discord.Client):
                 print("Stopping all active cs bot")
                 self.active_bots = {}
                 await message.channel.send("Deactivated all bots!!!")
+                return
+
+            if (message.content == "!startsiegebot"):
+                print("Creating Siege Bot! Triggered by: " + str(message.author))
+                self.active_bots[message.author.id] = siege_bot.siege_bot(message, client)
+                await message.channel.send("Siege Bot Activated")
                 return
 
             # handle active bots

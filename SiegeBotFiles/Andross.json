@@ -1,0 +1,19 @@
+{
+    "player": "Andrew",
+    "operators": [
+        { "Hibana": "Shot" },
+        { "Montagne": "Shot" },
+        { "Flores": "Maybe Shot" },
+        { "Ying": "Sip" },
+        { "Osa": "Sip" },
+        { "Sledge": "Sip" },
+        { "Blitz": "Sip" },
+        { "Echo": "Shot" },
+        { "Alibi": "Shot" },
+        { "Mozie": "Maybe Shot" },
+        { "Caviera": "Sip" },
+        { "Thorn": "Sip" },
+        { "Goyo": "Sip" },
+        { "Aruni": "Sip" }
+    ]
+}
