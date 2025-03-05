@@ -1,7 +1,7 @@
 import discord
 import random
 
-class siege_bot(Discord.client):
+class siege_bot(discord.Client):
     def __init__(self, message, client):
         self.client = client
         self.channel = message.channel
