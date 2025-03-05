@@ -5,7 +5,7 @@ from bot_token import TOKEN
 
 class world_serpent(discord.Client):
     # Global variables
-    channels = ["test", "general", "none_peasants"]
+    channels = ["test", "none_peasants"]
     active_bots = {}
     
     async def on_ready(self):
