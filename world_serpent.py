@@ -5,18 +5,22 @@ from bot_token import TOKEN
 
 class world_serpent(discord.Client):
     # Global variables
-    channel = "test" if debug_on else "none_peasants"
+    channel = "none_peasants"
     active_bots = {}
     
     async def on_ready(self):
             print(f'Logged in as {self.user} (ID: {self.user.id})')
             print('------')
 
+            if DEBUG_ON:
+                self.channel = "test"
+                print(f'Debug Mode Enabled!!! Switching channel to {self.channel}');
+
     async def on_message(self, message):
         #Debug Logging
         print("On_Message Triggered!")
 
-        if (str(message.channel) == channel):
+        if (str(message.channel) == self.channel):
             cs_commands = ["!csprivatematch", "!csconfirmteams", "!csreroll", "!csendgame"]
 
             # Do not trigger if the author is this bot
@@ -67,14 +71,12 @@ class world_serpent(discord.Client):
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
+DEBUG_ON = False
 
 # GIF CONSTANRTS
 DONKEY_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&"
 SLIDE_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1327483349308280934/cop-cop-slide.gif?ex=67833ab5&is=6781e935&hm=3950f1175aa01bb84b2ce1fc0a1e7c9585f8384e68fd6aae107c8509d0cc173a&"
 LUCA_GIF = "https://cdn.discordapp.com/attachments/375964855846305793/1372022987217436772/LucaBald.png?ex=6825437b&is=6823f1fb&hm=1c28d52d96c5539ae3dd714f3af9b47e4a0bec9f68914dbb2d72c7f94d29574e&"
-
-#GLOBAL FLAG -- Turn on if trying to test your code!!!
-debug_on = False
 
 client = world_serpent(intents=discord.Intents.all())
 client.run(TOKEN)
