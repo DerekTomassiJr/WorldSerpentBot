@@ -37,6 +37,13 @@ class world_serpent(discord.Client):
 
             if (message.content == "!luca"):
                 await message.channel.send(LUCA_GIF)
+
+            if (message.content == "!update" and message.author.guild_permissions.administrator):
+                await message.channel.send("Update triggered by admin");
+                print(f'{message.author} is a admin: {message.author.guild_permissions.administrator}');
+            else:
+                await message.author.send("You do not have permission to access this command! This is made only for admins")
+                print(f'{message.author} tried to access the update command without valid permissions! The user has been notified.')
             
             # create active bots
             if (message.content == "!startcsbot"):
