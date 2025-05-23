@@ -1,7 +1,8 @@
 import discord
+import sub_bot
 import random
 
-class cs_bot(discord.Client):
+class cs_bot(discord.Client, sub_bot.sub_bot):
     def __init__(self, message, client):
         self.channel = message.channel
         self.client = client
