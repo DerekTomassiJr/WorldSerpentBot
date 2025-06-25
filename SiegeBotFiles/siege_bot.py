@@ -29,6 +29,7 @@ class siege_bot(discord.Client):
             
         command, player_name = parts
         command = command.lower()
+        player_name = player_name.lower()
 
         #changes side to what the command specifies (either attack or defense)
         if (command == self.ATTACKER_PICK_COMMAND):
@@ -169,6 +170,8 @@ class siege_bot(discord.Client):
             print(results)
 
     async def command_handler(self, command):
+        siege_bot_commands = [self.DRUNK_SIEGE_START_COMMAND, self.DRUNK_SIEGE_END_COMMAND, self.DRUNK_SIEGE_JOIN_COMMAND, self.DRUNK_SIEGE_LEAVE_COMMAND, self.GROUP_ATTACKER_ROLL_COMMAND, self.GROUP_DEFENDER_ROLL_COMMAND, self.DRUNK_SIEGE_ACTIVE_PLAYER_COMMAND]
+
         print(command)
 
         if not command.startswith("!"):
@@ -180,7 +183,7 @@ class siege_bot(discord.Client):
         if content.startswith(self.ATTACKER_PICK_COMMAND) or content.startswith(self.DEFENDER_PICK_COMMAND):
             await self.bot_pick(command)
         #checks to see if the listed commands were entered, then jumps to drunk_siege function.
-        elif any(command.startswith(c) for c in [self.DRUNK_SIEGE_START_COMMAND, self.DRUNK_SIEGE_END_COMMAND, self.DRUNK_SIEGE_JOIN_COMMAND, self.DRUNK_SIEGE_LEAVE_COMMAND, self.GROUP_ATTACKER_ROLL_COMMAND, self.GROUP_DEFENDER_ROLL_COMMAND, self.DRUNK_SIEGE_ACTIVE_PLAYER_COMMAND]):
+        elif any(command.startswith(c) for c in siege_bot_commands):
             await self.drunk_siege(command)
 
         elif content == "!stopsiegebot":

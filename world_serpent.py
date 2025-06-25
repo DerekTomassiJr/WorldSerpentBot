@@ -44,7 +44,7 @@ class world_serpent(discord.Client):
             # create active bots
             if (message.content == "!startcsbot"):
                 print("Creating cs bot! Triggerd by: " + str(message.author))
-                self.active_bots[message.author.id] = cs_bot.cs_bot(message, client)
+                self.active_bots[message.channel.id] = cs_bot.cs_bot(message, client)
                 await message.channel.send("CS Bot Actions Active!")
                 return
             
@@ -57,16 +57,16 @@ class world_serpent(discord.Client):
 
             if (message.content == "!startsiegebot"):
                 print("Creating Siege Bot! Triggered by: " + str(message.author))
-                self.active_bots[message.author.id] = siege_bot.siege_bot(message, client)
+                self.active_bots[message.channel.id] = siege_bot.siege_bot(message, client)
                 await message.channel.send("Siege Bot Activated")
                 return
 
             # handle active bots
-            if (message.author.id in self.active_bots):
-                if (self.active_bots[message.author.id].bot_active):
-                    await self.active_bots[message.author.id].command_handler(message.content)
+            if (message.channel.id in self.active_bots and message.content.startswith("!")):
+                if (self.active_bots[message.channel.id].bot_active):
+                    await self.active_bots[message.channel.id].command_handler(message.content)
                 else:
-                    del active_bots[message.author.id]
+                    del active_bots[message.channel.id]
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
