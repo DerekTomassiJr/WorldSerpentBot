@@ -2,6 +2,10 @@ import discord
 import random
 import cs_bot
 from SiegeBotFiles import siege_bot
+import subprocess
+import cs_bot
+
+from ChildBots import siege_bot
 from bot_token import TOKEN
 
 class world_serpent(discord.Client):
@@ -52,7 +56,16 @@ class world_serpent(discord.Client):
             if (message.author.id == WILL_USER_ID and random.randint(1, 25) == 25):
                 await message.channel.send(WILL_GIF)
 
-            
+            if (message.content == "!update" and message.author.guild_permissions.administrator):
+                await message.channel.send("Update triggered by admin");
+                print(f'{message.author} is a admin: {message.author.guild_permissions.administrator}');
+
+                # Run the bash script to restart the bot and update with the latest release
+                subprocess.call("update.sh", shell=True);
+            else:
+                await message.author.send("You do not have permission to access this command! This is made only for admins")
+                print(f'{message.author} tried to access the update command without valid permissions! The user has been notified.')
+          
             # create active bots
             if (message.content == "!startcsbot"):
                 print("Creating cs bot! Triggerd by: " + str(message.author))
