@@ -78,7 +78,7 @@ class world_serpent(discord.Client):
                 if (self.active_bots[message.channel.id].bot_active):
                     await self.active_bots[message.channel.id].command_handler(message.content)
                 else:
-                    del active_bots[message.channel.id]
+                    del self.active_bots[message.channel.id]
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
