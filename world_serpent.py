@@ -34,6 +34,9 @@ class world_serpent(discord.Client):
                 print("!test Command Triggered by: " + str(message.author))
                 await message.channel.send("Hello!")
 
+            if (message.content == "!version"):
+                await message.channel.send(f"Jörmungandr v{VERSION}")
+
             if (message.content == "!move"):
                 await message.channel.send(DONKEY_GIF)
 
@@ -79,6 +82,7 @@ class world_serpent(discord.Client):
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
+VERSION = "1.1.0"
 WILL_USER_ID = 752341726487904316
 DEBUG_ON = False
 
