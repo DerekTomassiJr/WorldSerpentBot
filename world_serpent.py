@@ -29,6 +29,9 @@ class world_serpent(discord.Client):
                 print("!test Command Triggered by: " + str(message.author))
                 await message.channel.send("Hello!")
 
+            if (message.content == "!version"):
+                await message.channel.send(f"Jörmungandr v{VERSION}")
+
             if (message.content == "!move"):
                 await message.channel.send(DONKEY_GIF)
 
@@ -70,6 +73,7 @@ class world_serpent(discord.Client):
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
+VERSION = "1.1.0"
 
 # GIF CONSTANRTS
 DONKEY_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&"
