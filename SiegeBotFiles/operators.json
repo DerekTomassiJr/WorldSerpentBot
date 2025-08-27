@@ -77,7 +77,8 @@
             { "Solis": "None" },
             { "Fenrir": "None" },
             { "Tubarao": "None" },
-            { "Skopos": "None" }
+            { "Skopos": "None" },
+            { "Denari": "None"}
         ]
     },
     "phil": {
@@ -239,7 +240,8 @@
             { "Solis": "None" },
             { "Fenrir": "Sip" },
             { "Tubarao": "None" },
-            { "Skopos": "None" }
+            { "Skopos": "None" },
+            { "Denari": "None"}
         ]
     },
     "nathan": {
@@ -400,7 +402,8 @@
             { "Solis": "Shot(optional)" },
             { "Fenrir": "None" },
             { "Tubarao": "None" },
-            { "Skopos": "Sip" }
+            { "Skopos": "Sip" },
+            { "Denari": "None"}
         ]
     },
     "derek": {
