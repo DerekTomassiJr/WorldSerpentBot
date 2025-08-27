@@ -1,4 +1,5 @@
 import discord
+import random
 import cs_bot
 from SiegeBotFiles import siege_bot
 from bot_token import TOKEN
@@ -44,6 +45,10 @@ class world_serpent(discord.Client):
 
             if (message.content == "!lucamog"):
                 await message.channel.send(LUCA_MOG_PIC)
+
+            if (message.author.id == WILL_USER_ID and random.randint(1, 25) == 25):
+                await message.channel.send(WILL_GIF)
+
             
             # create active bots
             if (message.content == "!startcsbot"):
@@ -74,6 +79,7 @@ class world_serpent(discord.Client):
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
+WILL_USER_ID = 752341726487904316
 DEBUG_ON = False
 
 # GIF CONSTANRTS
@@ -81,6 +87,7 @@ DONKEY_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1323437
 SLIDE_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1327483349308280934/cop-cop-slide.gif?ex=67833ab5&is=6781e935&hm=3950f1175aa01bb84b2ce1fc0a1e7c9585f8384e68fd6aae107c8509d0cc173a&"
 LUCA_PIC = "https://cdn.discordapp.com/attachments/375964855846305793/1381350838177366096/LucaBald.png?ex=684732b8&is=6845e138&hm=8f5446d9090301548ec06cdcbd1b4fefcb2f55a8f304e06cf0daf29152cb5435&"
 LUCA_MOG_PIC = "https://cdn.discordapp.com/attachments/375964855846305793/1381354448797958164/LucaMog.png?ex=68473614&is=6845e494&hm=efde3b65c2b99fc85166c2284cc43dc8022dc49ce3b53bdb4ec7ed285c1141b9&"
+WILL_GIF = "https://cdn.discordapp.com/attachments/790017647365980241/1410362828648480838/AutismLight.gif?ex=68b0be3d&is=68af6cbd&hm=71f7c092f4222a338d88bd461be6e7289c66c5b382468f2a21aadfc1427054eb&"
 
 client = world_serpent(intents=discord.Intents.all())
 client.run(TOKEN)
