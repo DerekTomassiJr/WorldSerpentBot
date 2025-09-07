@@ -2,7 +2,6 @@ import discord
 import random
 import cs_bot
 from SiegeBotFiles import siege_bot
-import subprocess
 import cs_bot
 from bot_token import TOKEN
 
@@ -12,20 +11,18 @@ class world_serpent(discord.Client):
     active_bots = {}
     
     async def on_ready(self):
-            print(f'Logged in as {self.user} (ID: {self.user.id})')
-            print('------')
+        print(f'Logged in as {self.user} (ID: {self.user.id})')
+        print('------')
 
-            if DEBUG_ON:
-                self.channel = "test"
-                print(f'Debug Mode Enabled!!! Switching channel to {self.channel}');
+        if DEBUG_ON:
+            self.channel = "test"
+            print(f'Debug Mode Enabled!!! Switching channel to {self.channel}');
 
     async def on_message(self, message):
         #Debug Logging
         print("On_Message Triggered!")
 
         if (str(message.channel) == self.channel):
-            cs_commands = ["!csprivatematch", "!csconfirmteams", "!csreroll", "!csendgame"]
-
             # Do not trigger if the author is this bot
             if (str(message.author) == WORLD_SERPENT_NAME):
                 print("Bot Message")
@@ -58,16 +55,12 @@ class world_serpent(discord.Client):
             if (message.content == "!startcsbot"):
                 print("Creating cs bot! Triggerd by: " + str(message.author))
                 self.active_bots[message.channel.id] = cs_bot.cs_bot(message, client)
-                await message.channel.send("CS Bot Actions Active!")
+                if (self.active_bots[message.channel.id].bot_active):
+                    await message.channel.send("CS Bot Actions Active!")
+                else:
+                    await message.channel.send("CS Bot did not initialize properly!")
                 return
             
-            # temp fix for now
-            if (message.content == "!stopallcsbots"):
-                print("Stopping all active cs bot")
-                self.active_bots = {}
-                await message.channel.send("Deactivated all bots!!!")
-                return
-
             if (message.content == "!startsiegebot"):
                 print("Creating Siege Bot! Triggered by: " + str(message.author))
                 self.active_bots[message.channel.id] = siege_bot.siege_bot(message, client)
@@ -80,10 +73,23 @@ class world_serpent(discord.Client):
                     await self.active_bots[message.channel.id].command_handler(message.content)
                 else:
                     del self.active_bots[message.channel.id]
+                    
+            # kill switch for a last resort
+            if (message.content == "!stopallsubbots" and message.author.guild_permissions.administrator):
+                print("Stopping all active sub bots")
+                self.active_bots = {}
+                await message.channel.send("Deactivated all sub bots!!!")
+                return
+            
+            await self.debug_commands(message)
+            
+    async def debug_commands(self, message):
+        if (message.content == "!displayactivesubbots"):
+            await message.channel.send(f"Active Sub Bots:\n{self.active_bots}")
 
 # CONSTANTS
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
-VERSION = "1.1.1"
+VERSION = "1.1.2"
 WILL_USER_ID = 752341726487904316
 DEBUG_ON = False
 

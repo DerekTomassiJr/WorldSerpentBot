@@ -8,15 +8,16 @@ class cs_bot(discord.Client):
 
         try:
             self.voice_channel = message.author.voice.channel
+            
+            # logging channel information
+            print("CS Bot Object Created!")
+            print("Text Channel Detected: " + self.channel.name)
+            print("User Active Voice Channel Detected: " + self.voice_channel.name)
+            
+            self.bot_active = True
         except:
             print("No Voice Channel Detected!")
-
-        # logging channel information
-        print("CS Bot Object Created!")
-        print("Text Channel Detected: " + self.channel.name)
-        print("User Active Voice Channel Detected: " + self.voice_channel.name)
-
-        self.bot_active = True
+            self.deactivate_cs_bot()
 
     def create_private_match_message(self):
         pm_message = "=== T Side ===\n"
@@ -87,7 +88,7 @@ class cs_bot(discord.Client):
                    Use the !csprivatematch command to start a game"""
 
     def deactivate_cs_bot(self):
-        bot_active = False
+        self.bot_active = False
         print("Bot has been deactivate ")
 
     async def command_handler(self, command):
