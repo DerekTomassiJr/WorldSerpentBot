@@ -9,10 +9,21 @@ class world_serpent(discord.Client):
     # Global variables
     channel = "snake-den"
     active_bots = {}
+    general_commands = {}
     
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')
+        
+        # Populating the general commands dictionary
+        self.general_commands = {
+            "!test" : "Hello!",
+            "!version": f"Jörmungandr v{VERSION}",
+            "!move": DONKEY_GIF,
+            "!slidein": SLIDE_GIF,
+            "!luca": LUCA_PIC,
+            "!lucamog": LUCA_MOG_PIC
+        }
 
         if DEBUG_ON:
             self.channel = "test"
@@ -29,29 +40,13 @@ class world_serpent(discord.Client):
                 return
 
             # Commands
-            if (message.content == "!test"):
-                print("!test Command Triggered by: " + str(message.author))
-                await message.channel.send("Hello!")
-
-            if (message.content == "!version"):
-                await message.channel.send(f"Jörmungandr v{VERSION}")
-
-            if (message.content == "!move"):
-                await message.channel.send(DONKEY_GIF)
-
-            if (message.content == "!slidein"):
-                await message.channel.send(SLIDE_GIF)
-
-            if (message.content == "!luca"):
-                await message.channel.send(LUCA_PIC)
-
-            if (message.content == "!lucamog"):
-                await message.channel.send(LUCA_MOG_PIC)
+            if (message.content in self.general_commands.keys()):
+                await message.channel.send(self.general_commands[message.content])
 
             if (message.author.id == WILL_USER_ID and random.randint(1, 25) == 25):
                 await message.channel.send(WILL_GIF)
           
-            # create active bots
+            # Create active bots
             if (message.content == "!startcsbot"):
                 print("Creating cs bot! Triggerd by: " + str(message.author))
                 self.active_bots[message.channel.id] = cs_bot.cs_bot(message, client)
@@ -67,14 +62,14 @@ class world_serpent(discord.Client):
                 await message.channel.send("Siege Bot Activated")
                 return
 
-            # handle active bots
+            # Handle active bots
             if (message.channel.id in self.active_bots and message.content.startswith("!")):
                 if (self.active_bots[message.channel.id].bot_active):
                     await self.active_bots[message.channel.id].command_handler(message.content)
                 else:
                     del self.active_bots[message.channel.id]
                     
-            # kill switch for a last resort
+            # Kill switch for a last resort
             if (message.content == "!stopallsubbots" and message.author.guild_permissions.administrator):
                 print("Stopping all active sub bots")
                 self.active_bots = {}
@@ -91,7 +86,7 @@ class world_serpent(discord.Client):
 WORLD_SERPENT_NAME = "Jörmungandr#9126"
 VERSION = "1.1.2"
 WILL_USER_ID = 752341726487904316
-DEBUG_ON = False
+DEBUG_ON = True
 
 # GIF CONSTANRTS
 DONKEY_GIF = "https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&"
