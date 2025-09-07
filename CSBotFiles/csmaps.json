@@ -1,0 +1,74 @@
+{
+    "maps": [{
+        "Dust II": {
+            "map_pool": 0,
+            "original_game" : 1,
+            "scenario" : 0
+        },
+        "Mirage": {
+            "map_pool": 0,
+            "original_game": 2,
+            "scenario" : 0
+        },
+        "Inferno": {
+            "map_pool": 0,
+            "original_game": 1,
+            "scenario" : 0
+        },
+        "Nuke": {
+            "map_pool": 0,
+            "original_game": 0,
+            "scenario" : 0
+        },
+        "Ancient": {
+            "map_pool": 0,
+            "original_game": 2,
+            "scenario" : 0
+        },
+        "Train": {
+            "map_pool": 0,
+            "original_game": 2,
+            "scenario" : 0
+        },
+        "Overpass": {
+            "map_pool": 0,
+            "original_game": 2,
+            "scenario" : 0
+        },
+        "Anubis": {
+            "map_pool": 1,
+            "original_game": 2,
+            "scenario" : 0
+        },
+        "Vertigo": {
+            "map_pool": 1,
+            "original_game": 1,
+            "scenario" : 0
+        },
+        "Jura": {
+            "map_pool": 2,
+            "original_game": 3,
+            "scenario" : 0
+        },
+        "Grail": {
+            "map_pool": 2,
+            "original_game": 3,
+            "scenario" : 0
+        },
+        "Agency": {
+            "map_pool": 2,
+            "original_game": 2,
+            "scenario" : 1
+        },
+        "Office": {
+            "map_pool": 3,
+            "original_game": 0,
+            "scenario" : 1
+        },
+        "Italy": {
+            "map_pool": 3,
+            "original_game": 0,
+            "scenario" : 1
+        }
+    }]
+}

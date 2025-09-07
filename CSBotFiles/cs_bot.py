@@ -123,8 +123,14 @@ class cs_bot(discord.Client):
     # Constants
     TEAM_T_VC_ID = 1277807619872002099 # T Side Voice Channel
     TEAM_CT_VC_ID = 1277807683168374795 # CT Side Voice Channel
+    
     PRIVATE_MATCH_COMMAND = "!csprivatematch"
     CONFIRM_TEAMS_COMMAND = "!csconfirmteams"
     REROLL_TEAMS_COMMAND = "!csreroll"
     END_GAME_COMMAND = "!csendgame"
+    
+    START_CS_QUEUE_COMMAND = "!startcsqueue"
+    STOP_CS_QUEUE_COMMAND = "!stopcsqueue"
+    CS_QUEUE_COMMAND = "!csbotqueue"
+
     STOP_BOT_COMMAND = "!stopcsbot"

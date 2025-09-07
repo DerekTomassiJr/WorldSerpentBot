@@ -1,9 +1,8 @@
 import discord
 import random
-import cs_bot
+import Python.SnakeServerBot.CSBotFiles.cs_bot as cs_bot
 from SiegeBotFiles import siege_bot
-import subprocess
-import cs_bot
+import Python.SnakeServerBot.CSBotFiles.cs_bot as cs_bot
 from bot_token import TOKEN
 
 class world_serpent(discord.Client):
