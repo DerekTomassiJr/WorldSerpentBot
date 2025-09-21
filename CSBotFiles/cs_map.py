@@ -11,7 +11,7 @@ class cs_map():
         self.scenario = scenario
 
     def to_string(self):
-        return f"{self.map_name}:\nMap Pool: {self.map_pool}\nOriginal Game: {self.original_game}\nScenario: {self.scenario}"
+        return f"{self.map_name}:\nMap Pool: {CSMapPool(self.map_pool).name}\nOriginal Game: {CSMapOriginalGame(self.original_game).name}\nScenario: {CSMapScenario(self.scenario).name}"
 
     # Initialization Variables
     map_name: string = None # The map name

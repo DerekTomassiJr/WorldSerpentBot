@@ -1,5 +1,6 @@
 import discord
 import random
+from CSBotFiles import cs_bot_queue
 
 class cs_bot(discord.Client):
     def __init__(self, message, client):
@@ -86,7 +87,40 @@ class cs_bot(discord.Client):
         else:
             return """A game has not been created\n
                    Use the !csprivatematch command to start a game"""
-
+                   
+    async def handle_cs_queue_command(self, command):
+        if (command == self.START_CS_QUEUE_COMMAND):
+            if (self.cs_queue != None):
+                await self.channel.send("Cannot Start a CS Queue as one is in progress.")
+                return
+            
+            self.cs_queue = cs_bot_queue.cs_bot_queue()
+            
+            if (self.cs_queue.active):
+                await self.channel.send("CS Queue Started!")
+            else:
+                await self.channel.send("CS Queue did not initialize properly!")
+                self.cs_queue = None
+                
+            return
+        
+        if (command == self.STOP_CS_QUEUE_COMMAND):
+            if (self.cs_queue == None):
+                await self.channel.send("A CS Queue has not been started.")
+                return
+            
+            self.cs_queue = None
+            await self.channel.send("CS Queue successfully stopped.")
+            return
+            
+        if (self.cs_queue == None):
+            await self.channel.send(f"CS Queue is not initialized. Please start the csqueue with {self.START_CS_QUEUE_COMMAND}")
+        
+        try:
+            await self.channel.send(self.cs_queue.command_parser(command))
+        except Exception as e:
+            await self.channel.send(f"{e}")
+            
     def deactivate_cs_bot(self):
         self.bot_active = False
         print("Bot has been deactivate ")
@@ -95,6 +129,11 @@ class cs_bot(discord.Client):
         print(command)
         print(self.game_setup)
         print(self.team_ct)
+        
+        # Determine if the command is cs queue command first
+        if (command == self.START_CS_QUEUE_COMMAND or command == self.STOP_CS_QUEUE_COMMAND or command.startswith(self.CS_QUEUE_COMMAND)):
+            await self.handle_cs_queue_command(command)
+            return
         
         if (command == self.PRIVATE_MATCH_COMMAND or command == self.REROLL_TEAMS_COMMAND):
             await self.channel.send(self.private_match())
@@ -120,6 +159,7 @@ class cs_bot(discord.Client):
     team_ct = [] # Team 2
     channel = None # message text channel
     voice_channel = None # user's active voice channel
+    cs_queue = None # cs bot queue object
 
     # Constants
     TEAM_T_VC_ID = 1277807619872002099 # T Side Voice Channel
