@@ -1,6 +1,6 @@
 {
     "maps": [{
-        "Dust II": {
+        "Dust_II": {
             "map_pool": 0,
             "original_game" : 1,
             "scenario" : 0
@@ -45,12 +45,12 @@
             "original_game": 1,
             "scenario" : 0
         },
-        "Jura": {
+        "Palacio": {
             "map_pool": 2,
             "original_game": 3,
             "scenario" : 0
         },
-        "Grail": {
+        "Golden": {
             "map_pool": 2,
             "original_game": 3,
             "scenario" : 0
