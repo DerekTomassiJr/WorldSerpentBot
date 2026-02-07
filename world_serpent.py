@@ -32,7 +32,7 @@ class world_serpent(commands.Bot):
             "cogs.fun",
             "cogs.games",
             "cogs.blackjack",
-            "cog.utilities"
+            "cogs.utilities"
         ]
 
         for ext in cogCategories:

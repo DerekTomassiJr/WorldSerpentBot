@@ -10,14 +10,6 @@ class SnakeBot(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name = 'version', 
-                      help = 'Displays the current version of the bot', 
-                      brief = 'Bot Version',
-                      usage = '!version')
-    async def version(self, ctx):
-        print("!version Command Triggered by: " + str(ctx.author))
-        await ctx.send(f"Jörmungandr v{VERSION}")
-
     @commands.command(name = 'donkey', help = 'Sends Donkey GIF', brief = 'Donkey GIF')
     async def donkey(self, ctx):
         await ctx.send("https://cdn.discordapp.com/attachments/1136020852090093579/1323437159503630436/6VDRd5.gif?ex=67748267&is=677330e7&hm=916a303d2deec35b9d8e106c2c6b4d429014dcd21cd02754379dc64714eac39f&")
