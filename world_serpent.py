@@ -31,7 +31,8 @@ class world_serpent(commands.Bot):
         cogCategories = [
             "cogs.fun",
             "cogs.games",
-            "cogs.blackjack"
+            "cogs.blackjack",
+            "cog.utilities"
         ]
 
         for ext in cogCategories:
